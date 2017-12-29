@@ -87,12 +87,10 @@
         }
         function credentials(e) {
             var html;
-
             var form = document.createElement('form');
             form.innerHTML = '<label></label>';
-            form.innerHTML += '<input type=password size=10 id="password_input">';
-            form.onsubmit = setPassword;
-
+            form.innerHTML += '<input type=password size=10 id="password_input" value="123456">';
+            form.onsubmit = setPassword();
             // bypass status() because it sets text content
             document.getElementById('noVNC_status_bar').setAttribute("class", "noVNC_status_warn");
             document.getElementById('noVNC_status').innerHTML = '';
@@ -100,7 +98,9 @@
             document.getElementById('noVNC_status').querySelector('label').textContent = 'Password Required: ';
         }
         function setPassword() {
-            rfb.sendCredentials({ password: document.getElementById('password_input').value });
+            // rfb.sendCredentials({ password: document.getElementById('password_input').value });
+            rfb.sendCredentials({ password: "123456" });
+//alert('ss');
             return false;
         }
         function sendCtrlAltDel() {
@@ -162,6 +162,7 @@
             }
         }
 
+        // setPassword();
         document.getElementById('sendCtrlAltDelButton').onclick = sendCtrlAltDel;
         document.getElementById('machineShutdownButton').onclick = machineShutdown;
         document.getElementById('machineRebootButton').onclick = machineReboot;
@@ -233,6 +234,10 @@
             rfb.scaleViewport = WebUtil.getConfigVar('scale', false);
             rfb.resizeSession = WebUtil.getConfigVar('resize', false);
         })();
+        window.onload = function(){
+            alert('123');
+            document.getElementById("form").submit();
+        }
     </script>
 </head>
 
